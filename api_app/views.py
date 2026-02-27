@@ -435,7 +435,7 @@ class JobViewSet(ReadAndDeleteOnlyViewSet, SerializerActionMixin):
             raise ValidationError({"detail": "is_sample is required"})
         is_sample = request.data["is_sample"]
         jobs = Job.objects.filter(user__pk=request.user.pk)
-        if is_sample == "True":
+        if is_sample is True:
             jobs = jobs.filter(analyzable__classification=Classification.FILE)
         else:
             jobs = jobs.exclude(analyzable__classification=Classification.FILE)
