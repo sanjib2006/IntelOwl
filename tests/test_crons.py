@@ -99,10 +99,18 @@ class CronTests(CustomTestCase):
         db_file_path = phishing_army.PhishingArmy.update()
         self.assertTrue(os.path.exists(db_file_path))
 
-    @if_mock_connections(patch("requests.get", return_value=MockUpResponse({}, 200, text="93.95.230.253")))
+    @if_mock_connections(
+        patch(
+            "requests.get",
+            return_value=MockUpResponse({}, 200, content=b"ExitAddress 93.95.230.253 2022-08-18 14:44:33"),
+        )
+    )
     def test_tor_updater(self, mock_get=None):
-        db_file_path = tor.Tor.update()
-        self.assertTrue(os.path.exists(db_file_path))
+        from api_app.analyzers_manager.models import TorExitNode
+
+        result = tor.Tor.update()
+        self.assertTrue(result)
+        self.assertTrue(TorExitNode.objects.exists())
 
     @if_mock_connections(
         patch(
