@@ -353,3 +353,14 @@ class TorExitNode(LocalAnalyzerDBEntry):
 
     def __str__(self):
         return self.ip
+
+
+class TorDanMeUKNode(LocalAnalyzerDBEntry):
+    ip = models.GenericIPAddressField(db_index=True, unique=True)
+
+    class Meta:
+        verbose_name = "Tor DanMeUK Node"
+        verbose_name_plural = "Tor DanMeUK Nodes"
+
+    def __str__(self):
+        return self.ip

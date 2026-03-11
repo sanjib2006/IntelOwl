@@ -16,6 +16,7 @@ from api_app.analyzers_manager.observable_analyzers import (
     phishing_army,
     talos,
     tor,
+    tor_nodes_danmeuk,
     tweetfeeds,
 )
 from api_app.choices import Classification, PythonModuleBasePaths
@@ -111,6 +112,19 @@ class CronTests(CustomTestCase):
         result = tor.Tor.update()
         self.assertTrue(result)
         self.assertTrue(TorExitNode.objects.exists())
+
+    @if_mock_connections(
+        patch(
+            "requests.get",
+            return_value=MockUpResponse({}, 200, content=b"100.10.37.131\n100.14.156.183\n45.141.119.113\n"),
+        )
+    )
+    def test_tor_nodes_danmeuk_updater(self, mock_get=None):
+        from api_app.analyzers_manager.models import TorDanMeUKNode
+
+        result = tor_nodes_danmeuk.TorNodesDanMeUK.update()
+        self.assertTrue(result)
+        self.assertTrue(TorDanMeUKNode.objects.exists())
 
     @if_mock_connections(
         patch(
