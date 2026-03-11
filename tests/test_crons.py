@@ -95,10 +95,20 @@ class CronTests(CustomTestCase):
         db_file_path = talos.Talos.update()
         self.assertTrue(os.path.exists(db_file_path))
 
-    @if_mock_connections(patch("requests.get", return_value=MockUpResponse({}, 200, text="91.192.100.61")))
+    @if_mock_connections(
+        patch(
+            "requests.get",
+            return_value=MockUpResponse(
+                {}, 200, content=b"# Phishing Army Blocklist\nexample.com\nevil-phishing.net\nbadsite.org\n"
+            ),
+        )
+    )
     def test_phishing_army_updater(self, mock_get=None):
-        db_file_path = phishing_army.PhishingArmy.update()
-        self.assertTrue(os.path.exists(db_file_path))
+        from api_app.analyzers_manager.models import PhishingArmyDomain
+
+        result = phishing_army.PhishingArmy.update()
+        self.assertTrue(result)
+        self.assertTrue(PhishingArmyDomain.objects.exists())
 
     @if_mock_connections(
         patch(

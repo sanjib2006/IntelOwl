@@ -3,7 +3,13 @@
 from django.contrib import admin
 
 from api_app.admin import AbstractReportAdminView, PythonConfigAdminView
-from api_app.analyzers_manager.models import AnalyzerConfig, AnalyzerReport, TorDanMeUKNode, TorExitNode
+from api_app.analyzers_manager.models import (
+    AnalyzerConfig,
+    AnalyzerReport,
+    PhishingArmyDomain,
+    TorDanMeUKNode,
+    TorExitNode,
+)
 
 
 # flake8: noqa
@@ -30,3 +36,8 @@ class TorExitNodeAdmin(admin.ModelAdmin):
 @admin.register(TorDanMeUKNode)
 class TorDanMeUKNodeAdmin(admin.ModelAdmin):
     list_display = ["ip", "updated_at"]
+
+
+@admin.register(PhishingArmyDomain)
+class PhishingArmyDomainAdmin(admin.ModelAdmin):
+    list_display = ["domain", "updated_at"]
