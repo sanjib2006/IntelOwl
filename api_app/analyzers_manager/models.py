@@ -375,3 +375,15 @@ class PhishingArmyDomain(LocalAnalyzerDBEntry):
 
     def __str__(self):
         return self.domain
+
+
+class TweetFeedItem(LocalAnalyzerDBEntry):
+    value = models.CharField(max_length=512, db_index=True, unique=True)
+    details = models.JSONField(default=dict)
+
+    class Meta:
+        verbose_name = "TweetFeed Item"
+        verbose_name_plural = "TweetFeed Items"
+
+    def __str__(self):
+        return self.value

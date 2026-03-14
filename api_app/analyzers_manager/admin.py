@@ -9,6 +9,7 @@ from api_app.analyzers_manager.models import (
     PhishingArmyDomain,
     TorDanMeUKNode,
     TorExitNode,
+    TweetFeedItem,
 )
 
 
@@ -41,3 +42,8 @@ class TorDanMeUKNodeAdmin(admin.ModelAdmin):
 @admin.register(PhishingArmyDomain)
 class PhishingArmyDomainAdmin(admin.ModelAdmin):
     list_display = ["domain", "updated_at"]
+
+
+@admin.register(TweetFeedItem)
+class TweetFeedItemAdmin(admin.ModelAdmin):
+    list_display = ["value", "updated_at"]
