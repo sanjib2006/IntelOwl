@@ -387,3 +387,18 @@ class TweetFeedItem(LocalAnalyzerDBEntry):
 
     def __str__(self):
         return self.value
+
+
+class SpamhausDropItem(LocalAnalyzerDBEntry):
+    data_type = models.CharField(max_length=10, db_index=True)
+    value = models.CharField(max_length=50, db_index=True)
+    network_address = models.GenericIPAddressField(db_index=True, null=True, blank=True)
+    details = models.JSONField(default=dict)
+
+    class Meta:
+        verbose_name = "Spamhaus Drop Item"
+        verbose_name_plural = "Spamhaus Drop Items"
+        unique_together = (("data_type", "value"),)
+
+    def __str__(self):
+        return f"{self.data_type}: {self.value}"

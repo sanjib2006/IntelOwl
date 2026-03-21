@@ -10,6 +10,7 @@ from api_app.analyzers_manager.models import (
     TorDanMeUKNode,
     TorExitNode,
     TweetFeedItem,
+    SpamhausDropItem,
 )
 
 
@@ -47,3 +48,10 @@ class PhishingArmyDomainAdmin(admin.ModelAdmin):
 @admin.register(TweetFeedItem)
 class TweetFeedItemAdmin(admin.ModelAdmin):
     list_display = ["value", "updated_at"]
+
+
+@admin.register(SpamhausDropItem)
+class SpamhausDropItemAdmin(admin.ModelAdmin):
+    list_display = ["data_type", "value", "network_address", "updated_at"]
+    list_filter = ["data_type"]
+    search_fields = ["value", "network_address"]
