@@ -11,6 +11,7 @@ from api_app.analyzers_manager.models import (
     TorExitNode,
     TweetFeedItem,
     SpamhausDropItem,
+    StratosphereIPEntry,
 )
 
 
@@ -55,3 +56,10 @@ class SpamhausDropItemAdmin(admin.ModelAdmin):
     list_display = ["data_type", "value", "network_address", "updated_at"]
     list_filter = ["data_type"]
     search_fields = ["value", "network_address"]
+
+
+@admin.register(StratosphereIPEntry)
+class StratosphereIPEntryAdmin(admin.ModelAdmin):
+    list_display = ["ip", "list_type", "rating", "updated_at"]
+    list_filter = ["list_type"]
+    search_fields = ["ip"]

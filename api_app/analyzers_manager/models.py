@@ -402,3 +402,17 @@ class SpamhausDropItem(LocalAnalyzerDBEntry):
 
     def __str__(self):
         return f"{self.data_type}: {self.value}"
+
+
+class StratosphereIPEntry(LocalAnalyzerDBEntry):
+    ip = models.GenericIPAddressField(db_index=True)
+    list_type = models.CharField(max_length=50, db_index=True)
+    rating = models.CharField(max_length=50, blank=True)
+
+    class Meta:
+        verbose_name = "Stratosphere IP Entry"
+        verbose_name_plural = "Stratosphere IP Entries"
+        unique_together = (("ip", "list_type"),)
+
+    def __str__(self):
+        return f"{self.ip} - {self.list_type}"
