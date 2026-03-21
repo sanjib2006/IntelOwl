@@ -416,3 +416,17 @@ class StratosphereIPEntry(LocalAnalyzerDBEntry):
 
     def __str__(self):
         return f"{self.ip} - {self.list_type}"
+
+
+class FireholIPEntry(LocalAnalyzerDBEntry):
+    list_name = models.CharField(max_length=50, db_index=True)
+    ip_or_subnet = models.CharField(max_length=50, db_index=True)
+    network_address = models.GenericIPAddressField(db_index=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "FireHol IP Entry"
+        verbose_name_plural = "FireHol IP Entries"
+        unique_together = (("ip_or_subnet", "list_name"),)
+
+    def __str__(self):
+        return f"{self.ip_or_subnet} - {self.list_name}"

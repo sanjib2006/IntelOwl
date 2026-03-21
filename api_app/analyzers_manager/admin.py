@@ -12,6 +12,7 @@ from api_app.analyzers_manager.models import (
     TweetFeedItem,
     SpamhausDropItem,
     StratosphereIPEntry,
+    FireholIPEntry,
 )
 
 
@@ -63,3 +64,10 @@ class StratosphereIPEntryAdmin(admin.ModelAdmin):
     list_display = ["ip", "list_type", "rating", "updated_at"]
     list_filter = ["list_type"]
     search_fields = ["ip"]
+
+
+@admin.register(FireholIPEntry)
+class FireholIPEntryAdmin(admin.ModelAdmin):
+    list_display = ["ip_or_subnet", "list_name", "network_address", "updated_at"]
+    list_filter = ["list_name"]
+    search_fields = ["ip_or_subnet", "network_address"]
