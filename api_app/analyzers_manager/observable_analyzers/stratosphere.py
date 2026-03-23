@@ -71,6 +71,11 @@ class Stratos(classes.ObservableAnalyzer):
                     ip = split_tuple[0].strip()
                     rating = split_tuple[1].strip() if len(split_tuple) >= 2 else "found"
 
+                    try:
+                        rating = f"{float(rating):.3f}"
+                    except (ValueError, TypeError):
+                        pass
+
                     entries_to_create.append(StratosphereIPEntry(ip=ip, list_type=list_type, rating=rating))
 
             with transaction.atomic():
