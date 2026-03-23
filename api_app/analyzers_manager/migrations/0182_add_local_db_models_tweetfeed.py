@@ -3,7 +3,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("analyzers_manager", "0180_add_local_db_models_phishing_army"),
+        ("analyzers_manager", "0181_analyzer_config_phishing_engine_param"),
     ]
 
     operations = [

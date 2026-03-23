@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('analyzers_manager', '0181_add_local_db_models_tweetfeed'),
+        ('analyzers_manager', '0182_add_local_db_models_tweetfeed'),
     ]
 
     operations = [

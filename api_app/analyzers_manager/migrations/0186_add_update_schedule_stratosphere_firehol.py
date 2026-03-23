@@ -47,7 +47,7 @@ def remove_update_schedules(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('analyzers_manager', '0184_fireholipentry'),
+        ('analyzers_manager', '0185_fireholipentry'),
     ]
 
     operations = [

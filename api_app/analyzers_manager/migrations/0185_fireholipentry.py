@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('analyzers_manager', '0183_stratosphereipentry'),
+        ('analyzers_manager', '0184_stratosphereipentry'),
     ]
 
     operations = [
