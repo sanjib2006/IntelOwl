@@ -56,7 +56,13 @@ class FireHol_IPList(classes.ObservableAnalyzer):
         return result
 
     @classmethod
-    def update(cls, list_name):
+    def update(cls, list_name=None):
+        if list_name is None:
+            list_names = set(FireholIPEntry.objects.values_list("list_name", flat=True))
+            for ln in list_names:
+                cls.update(ln)
+            return
+
         if ".ipset" not in list_name and ".netset" not in list_name:
             raise AnalyzerConfigurationException(
                 f"extension missing from {list_name} (add .ipset or .netset to name)"
