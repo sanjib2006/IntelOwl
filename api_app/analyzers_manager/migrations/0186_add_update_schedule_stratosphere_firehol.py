@@ -28,6 +28,8 @@ def add_update_schedules(apps, schema_editor):
             module.save()
         except PythonModule.DoesNotExist:
             pass
+
+
 def remove_update_schedules(apps, schema_editor):
     PythonModule = apps.get_model("api_app", "PythonModule")
     
@@ -44,6 +46,7 @@ def remove_update_schedules(apps, schema_editor):
         except PythonModule.DoesNotExist:
             pass
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -53,4 +56,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(add_update_schedules, reverse_code=remove_update_schedules),
     ]
-
