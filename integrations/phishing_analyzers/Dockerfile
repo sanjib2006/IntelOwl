@@ -30,12 +30,6 @@ RUN chmod u+x entrypoint.sh \
     && playwright install chromium --with-deps \
     && chmod -R o+rX /ms-playwright
 
-# unprivileged user must run some commands as root to avoid conflicts with other volumes.
-# adding them to sudoers file to avoid running entrypoint as root usesr.
-RUN echo "${USER} ALL=(root) NOPASSWD: /usr/bin/mkdir -p ${LOG_PATH}" > /etc/sudoers.d/create_log_directory \
-  && echo "${USER} ALL=(root) NOPASSWD: /usr/bin/touch ${LOG_PATH}/gunicorn_access.log ${LOG_PATH}/gunicorn_errors.log" > /etc/sudoers.d/create_log_files \
-  && echo "${USER} ALL=(root) NOPASSWD: /usr/bin/chown -R ${USER}\:${USER} ${PROJECT_PATH}/phishing_analyzers ${LOG_PATH}" > /etc/sudoers.d/chown_log_and_workdir_unprivileged
-
 
 # Serve Flask application using gunicorn as low-privileged user
 EXPOSE 4005
