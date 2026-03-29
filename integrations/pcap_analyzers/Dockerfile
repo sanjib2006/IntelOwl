@@ -5,7 +5,7 @@ ENV PROJECT_PATH=/opt/deploy
 ENV LOG_PATH=/var/log/intel_owl/pcap_analyzers
 ENV USER=pcap_analyzers-user
 RUN dnf -y install python3-pip wget && dnf clean all && useradd -ms /bin/bash ${USER} \
-    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.19/gosu-amd64" \
+    && wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.19/gosu-amd64" \
     && chmod +x /usr/local/bin/gosu
 
 # Build Flask REST API
